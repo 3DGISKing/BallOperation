@@ -1,0 +1,6 @@
+/package-lock.json
+/.idea
+/app.js
+/app.js.map
+/yarn.lock
+/node_modules

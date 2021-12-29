@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ball Operation</title>
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .fullSize {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        #info {
+            position: absolute;
+            top: 0px;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            z-index: 1; /* TODO Solve this in HTML */
+        }
+
+        input[type="button"]:hover {
+            cursor: pointer;
+        }
+
+        .selectBox {
+            border: 1px solid #55aaff;
+            background-color: rgba(75, 160, 255, 0.3);
+            position: fixed;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+<div id="threejsContainer" class="fullSize"></div>
+<div id="info">
+    <input id="add" type="button" value="Add">
+    <input id="split" type="button" value="Split">
+</div>
+
+<script type="x-shader/x-vertex" id="vertexshader">
+
+			varying vec2 vUv;
+
+			void main() {
+
+				vUv = uv;
+
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+			}
+
+
+</script>
+
+<script type="x-shader/x-fragment" id="fragmentshader">
+
+			uniform sampler2D baseTexture;
+			uniform sampler2D bloomTexture;
+
+			varying vec2 vUv;
+
+			void main() {
+
+				gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
+
+			}
+
+
+</script>
+
+<script src="./app.js"></script>
+
+</body>
+</html>
